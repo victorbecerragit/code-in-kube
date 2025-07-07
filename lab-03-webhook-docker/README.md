@@ -12,7 +12,7 @@ https://github.com/victorbecerragit/action-docker/tree/main/authn-webhook
 
 # Login to the control-plane node and follow these steps.
 
-```
+```shell
 
 To Test the webhook in kubernetes ,first we need to add the file webhook-config.yml to the control-plane node path /etc/kubernetes/pki/
 
