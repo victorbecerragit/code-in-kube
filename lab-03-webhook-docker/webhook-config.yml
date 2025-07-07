@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Config
+clusters:
+  - name: remote-authn-service
+    cluster:
+      insecure-skip-tls-verify: true
+      server: https://my-authn.kube-system.svc/authenticate
+users:
+  - name: webhook-authn
+current-context: webhook-authn
+contexts:
+  - context:
+      cluster: remote-authn-service
+      user: webhook-authn
+    name: webhook-authn
