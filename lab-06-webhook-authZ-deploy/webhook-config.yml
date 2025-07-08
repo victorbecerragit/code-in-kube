@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Config
+clusters:
+  - name: remote-authz-service
+    cluster:
+      insecure-skip-tls-verify: true
+      server: https://my-authz.kube-system.svc/authorize
+users:
+  - name: webhook-authz
+current-context: webhook-authz
+contexts:
+  - context:
+      cluster: remote-authz-service
+      user: webhook-authz
+    name: webhook-authz

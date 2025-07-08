@@ -1,0 +1,17 @@
+{
+  "apiVersion": "authorization.k8s.io/v1beta1",
+  "kind": "SubjectAccessReview",
+  "spec": {
+    "resourceAttributes": {
+      "namespace": "demo-ns",
+      "verb": "get",
+      "resource": "pods",
+      "version": "v1"
+    },
+    "user": "demo-user",
+    "group": [
+      "system:authenticated",
+      "demo-group"
+    ]
+  }
+}

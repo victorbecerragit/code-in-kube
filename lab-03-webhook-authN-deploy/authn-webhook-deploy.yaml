@@ -23,7 +23,7 @@ spec:
           image: victorbecerra/authn-webhook:v0.1
           imagePullPolicy: Always
           command:
-            - /usr/local/bin/auth-webhook
+            - /usr/local/bin/authn-webhook
             - --tls-cert-file=/certs/cert.pem
             - --tls-private-key-file=/certs/key.pem
           volumeMounts:

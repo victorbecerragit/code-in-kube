@@ -1,0 +1,20 @@
+# Build the binary before building the container
+FROM golang:1.23 as builder
+
+WORKDIR /app
+
+COPY . .
+
+RUN go build -o main .
+# Use a minimal base image for the final container
+FROM alpine:latest
+
+WORKDIR /app
+
+COPY --from=builder /app/main .
+
+CMD ["/app/main"]   
+# Expose the port the app runs on
+EXPOSE 8080
+# Set the entrypoint to the binary
+ENTRYPOINT ["/app/main"]
