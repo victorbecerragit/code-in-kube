@@ -14,7 +14,7 @@ Webhook Authorization by entity or user.
 
 | Application | Description |
 |-------------|-------------|
-| [webhook-setup](lab-04-webhook-auhtZ/) | Sample code to create a simple http server (webhook server) that authorizate a user (mock sample)  |
+| [webhook-setup](lab-04-webhook-authZ/) | Sample code to create a simple http server (webhook server) that authorizate a user (mock sample)  |
 | [webhook-certificates](lab-05-webhook-authZ-cert) | https webhook w/certificates  |
 | [webook-deploy](lab-06-webhook-authZ-deploy/) | Kube deploy for webhook authorization app |
 

@@ -2,6 +2,7 @@
 
 # Sample code to create a simple http server (webhook server) that authenticate a user (mock sample)
 
+```yaml
 
 Let’s write a simple HTTP server that responds with the mock authenticated user mock, when requested for the /authenticate resource over port 443.
 
@@ -44,3 +45,5 @@ On a second terminal, run the POST to test the webhook:
 
 curl -k -X POST -d @tokenreview.json http://localhost:4443/authenticate
 
+
+```

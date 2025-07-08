@@ -2,6 +2,8 @@
 
 # Sample code to create a simple http server (webhook server) for authorization services
 
+```
+
 You have deployed the webhook-authZ in lab-04.
 
 In production environments, using HTTPS is more secure. Now, let’s create some certificates for safe serving:
@@ -25,3 +27,4 @@ var (
 	log.Println("Listening on port 443 for requests...")
 	log.Fatal(http.ListenAndServeTLS(":443", certFile, keyFile, nil))
 
+```
