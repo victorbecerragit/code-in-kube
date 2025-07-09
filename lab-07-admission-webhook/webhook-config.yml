@@ -1,0 +1,21 @@
+apiVersion: admissionregistration.k8s.io/v1
+kind: ValidatingWebhookConfiguration
+metadata:
+  name: "validating-admission-demo"
+webhooks:
+  - name: "validating-admission-demo.kube-system.svc"
+    rules:
+      - apiGroups:   [""]
+        apiVersions: ["v1"]
+        operations:  ["CREATE"]
+        resources:   ["pods"]
+        scope:       "Namespaced"
+    clientConfig:
+      service:
+        namespace: "kube-system"
+        name: "validating-admission-demo"
+        path: "/validate"
+      caBundle: $CABUNDLE
+    admissionReviewVersions: ["v1"]
+    sideEffects: None
+    timeoutSeconds: 5

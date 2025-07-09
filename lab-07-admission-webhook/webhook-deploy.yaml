@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: validating-admission-demo
+  namespace: kube-system
+  labels:
+    app: validating-admission-demo
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: validating-admission-demo
+  template:
+    metadata:
+      labels:
+        app: validating-admission-demo
+    spec:
+      tolerations:
+        - key: node-role.kubernetes.io/master
+          operator: Exists
+      containers:
+        - name: validating-admission-demo
+          image: dixudx/pwk:validating-admission-webhook
+          imagePullPolicy: IfNotPresent
+          command:
+            - /usr/local/bin/validating-admission-webhook
+            - --tls-cert-file=./server.pem
+            - --tls-private-key-file=./server-key.pem
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: validating-admission-demo
+  namespace: kube-system
+spec:
+  ports:
+    - port: 443
+      protocol: TCP
+      targetPort: 443
+  selector:
+    app: validating-admission-demo
