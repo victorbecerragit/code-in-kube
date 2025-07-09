@@ -7,11 +7,15 @@
 A validating admission webhook service is a web server, because the kube-apiserver invokes it through HTTPS POST requests. 
 Now, let’s implement such a service step by step.
 
+```go
+
 import:
     admissionapi "k8s.io/api/admission/v1"
 	corev1 "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 
+
+```
 
 Let’s write a simple HTTP server at the path /validate on port 443. It checks the Pod name and rejects all Pods having mock-app in their names. 
 
@@ -26,11 +30,13 @@ The rest of the code (lines 68–117 in main.go) is a simple HTTP handler that h
 
 Another notable thing is that, after we finish handling AdmissionReview, we should not forget to set the Response.UID, which matches the Request.UID.
 
-
 # Generate Certificates.
 
 In production environments, the kube-apiserver uses the CA certificate to visit our admission webhooks, which are serving securely with HTTPS. Now, let’s use cfssl to create some certificates for safe serving.
 
+```
+
+```shell
 
 echo '{"CA":{"expiry": "87600h","pathlen":0},"CN":"CA","key":{"algo":"rsa","size":2048}}' | cfssl gencert -initca - | cfssljson -bare ca -
 
@@ -42,6 +48,9 @@ export NAME=server
 
 echo '{"CN":"'$NAME'","hosts":[""],"key":{"algo":"rsa","size":2048}}' | cfssl gencert -config=ca-config.json -ca=ca.pem -ca-key=ca-key.pem -hostname="$ADDRESS" - | cfssljson -bare $NAME
 
+``` 
+
+```
 Here, we generate a self-signed certificate with the CN field set to validating-admission-demo.kube-system.svc. We’re going to run this service in Kubernetes, which is the endpoint that we want to expose. The DNS name validating-admission-demo.kube-system.svc indicates that there’s a Service named validating-admission-demo running in the namespace kube-system.
 
 

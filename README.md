@@ -21,3 +21,9 @@ Webhook Authorization by entity or user.
 | [webhook-certificates](lab-05-webhook-authZ-cert) | https webhook w/certificates  |
 | [webook-deploy](lab-06-webhook-authZ-deploy/) | Kube deploy for webhook authorization app |
 
+
+Admission Controller - Validating webhook admissions
+
+| Application | Description |
+|-------------|-------------|
+| [admission-webhook-setup](lab-07-admission-webhook/) | Sample code to create an validating-admission-webhook |
