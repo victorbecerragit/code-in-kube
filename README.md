@@ -1,4 +1,7 @@
-# Excercises from Programming with Kubernetes (educative.io)
+# Exercises from Programming with Kubernetes (educative.io)
+
+- Webhook authentication and authorization.
+- Admission Controller - Validating webhook admissions.
 
 
 Webhook Authentication by token.
