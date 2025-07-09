@@ -7,13 +7,10 @@
 A validating admission webhook service is a web server, because the kube-apiserver invokes it through HTTPS POST requests. 
 Now, let’s implement such a service step by step.
 
-```go
-
 import:
     admissionapi "k8s.io/api/admission/v1"
 	corev1 "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
-
 
 ```
 
@@ -34,9 +31,7 @@ Another notable thing is that, after we finish handling AdmissionReview, we shou
 
 In production environments, the kube-apiserver uses the CA certificate to visit our admission webhooks, which are serving securely with HTTPS. Now, let’s use cfssl to create some certificates for safe serving.
 
-```
-
-```shell
+```bash 
 
 echo '{"CA":{"expiry": "87600h","pathlen":0},"CN":"CA","key":{"algo":"rsa","size":2048}}' | cfssl gencert -initca - | cfssljson -bare ca -
 
@@ -48,9 +43,8 @@ export NAME=server
 
 echo '{"CN":"'$NAME'","hosts":[""],"key":{"algo":"rsa","size":2048}}' | cfssl gencert -config=ca-config.json -ca=ca.pem -ca-key=ca-key.pem -hostname="$ADDRESS" - | cfssljson -bare $NAME
 
-``` 
-
 ```
+
 Here, we generate a self-signed certificate with the CN field set to validating-admission-demo.kube-system.svc. We’re going to run this service in Kubernetes, which is the endpoint that we want to expose. The DNS name validating-admission-demo.kube-system.svc indicates that there’s a Service named validating-admission-demo running in the namespace kube-system.
 
 
@@ -77,6 +71,7 @@ docker ps -a | grep apiserver | grep -v "pause" | awk '{print $1}' | xargs docke
 
 Test:
 
+```bash 
 kubectl run a-mock-app --image=nginx:1.23
 
 The command above will create a Pod with the name a-mock-app-pod, which contains mock-app. Let’s run it in the terminal above to see what happens
@@ -84,5 +79,3 @@ The command above will create a Pod with the name a-mock-app-pod, which contains
 Error from server: admission webhook "validating-admission-demo.kube-system.svc" denied the request: Keep calm and this is a webhook demo in the cluster!
 
 We can see that the Pod a-mock-app is rejected correctly by our webhook, which is working as expected.
-
-```
