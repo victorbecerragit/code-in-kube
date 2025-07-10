@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mutating-admission-demo
+  namespace: kube-system
+  labels:
+    app: mutating-admission-demo
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: mutating-admission-demo
+  template:
+    metadata:
+      labels:
+        app: mutating-admission-demo
+    spec:
+      tolerations:
+        - key: node-role.kubernetes.io/master
+          operator: Exists
+      containers:
+        - name: mutating-admission-demo
+          image: dixudx/pwk:mutating-admission-webhook
+          imagePullPolicy: IfNotPresent
+          command:
+            - /usr/local/bin/mutating-admission-webhook
+            - --tls-cert-file=./server.pem
+            - --tls-private-key-file=./server-key.pem
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: mutating-admission-demo
+  namespace: kube-system
+spec:
+  ports:
+    - port: 443
+      protocol: TCP
+      targetPort: 443
+  selector:
+    app: mutating-admission-demo

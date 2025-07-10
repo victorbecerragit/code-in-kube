@@ -22,8 +22,9 @@ Webhook Authorization by entity or user.
 | [webook-deploy](lab-06-webhook-authZ-deploy/) | Kube deploy for webhook authorization app |
 
 
-Admission Controller - Validating webhook admissions
+Admission Controller - Validating, Mutating webhook admissions
 
 | Application | Description |
 |-------------|-------------|
 | [admission-webhook-setup](lab-07-admission-webhook/) | Sample code to create an validating-admission-webhook |
+| [mutating-admission-webhook](lab-08-mutating-admission-webhook/) | Sample code to create an mutating-admission-webhook |
