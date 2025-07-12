@@ -2,7 +2,7 @@
 
 - Webhook authentication and authorization.
 - Admission Controller - Validating webhook admissions.
-
+- CRD (Custom Resources Definition ) - Example
 
 Webhook Authentication by token.
 
@@ -28,3 +28,9 @@ Admission Controller - Validating, Mutating webhook admissions
 |-------------|-------------|
 | [admission-webhook-setup](lab-07-admission-webhook/) | Sample code to create an validating-admission-webhook |
 | [mutating-admission-webhook](lab-08-mutating-admission-webhook/) | Sample code to create an mutating-admission-webhook |
+
+CRD - Example 
+
+| Application | Description |
+|-------------|-------------|
+| [crd-setup](lab-09-crd-example/) | Sample code to create an crd object |
