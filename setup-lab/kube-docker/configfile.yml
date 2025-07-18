@@ -1,0 +1,25 @@
+apiVersion: kubeadm.k8s.io/v1beta3
+kind: InitConfiguration
+nodeRegistration:
+  criSocket: "/var/run/dockershim.sock"
+  kubeletExtraArgs:
+    v: "4"
+  ignorePreflightErrors:
+    - NumCPU
+  imagePullPolicy: "IfNotPresent"
+---
+apiVersion: kubeadm.k8s.io/v1beta3
+kind: ClusterConfiguration
+networking:
+  serviceSubnet: "10.96.0.0/16"
+  podSubnet: "10.244.0.0/16"
+  dnsDomain: "cluster.local"
+kubernetesVersion: "v1.23.8"
+apiServer:
+#  extraArgs:
+#    authorization-mode: "Node,RBAC"
+  timeoutForControlPlane: 4m0s
+---
+apiVersion: kubelet.config.k8s.io/v1beta1
+kind: KubeletConfiguration
+cgroupDriver: cgroupfs
